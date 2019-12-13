@@ -1,4 +1,4 @@
-package com.news.today.todayinformation;
+package com.huiqu.app_two;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -7,15 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.news.today.todayinformation.mvp.ISplashActivityContract;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.huiqu.app_two.mvp.ISplashActivityContract;
+import com.huiqu.app_two.mvp.SplashTimerPresenter;
 
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * Created by anson on 2018/4/24.
- */
 @ViewInject(mainlayoutid = R.layout.activity_splash)
 public class SplashActivity extends BaseActivity implements ISplashActivityContract.Iview{
 
@@ -23,20 +25,17 @@ public class SplashActivity extends BaseActivity implements ISplashActivityContr
     FullScreenVideoView mVideoView;
     @BindView(R.id.tv_splash_timer)
     TextView mTvTimer;
+
     private ISplashActivityContract.IPresenter timerPresenter;
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void afterViewBind() {
         initTimerPresenter();
         initListener();
         initVideo();
     }
-
-    private void initTimerPresenter() {
-        timerPresenter = new SplashTimerPresenter(this);
-        timerPresenter.initTimer();
-    }
-
 
     private void initVideo() {
         mVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + File.separator + R.raw.splash));
@@ -63,15 +62,24 @@ public class SplashActivity extends BaseActivity implements ISplashActivityContr
             }
         });
     }
+    private void initTimerPresenter() {
+        timerPresenter = new SplashTimerPresenter(this);
+        timerPresenter.initTimer();
 
+    }
 
-    @Override
-    public void setTvTimer(String s) {
-        mTvTimer.setText(s);
+    @OnClick({R.id.vv_play, R.id.tv_splash_timer})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.vv_play:
+                break;
+            case R.id.tv_splash_timer:
+                break;
+        }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void setTvTimer(String timer) {
+            mTvTimer.setText(timer);
     }
 }

@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity {
     RadioButton rbMainNavCarSourceShenzhen;
     @BindView(R.id.rg_main_bottom)
     RadioGroup rgMainBottom;
-
     private boolean isChangeTopOrBottom;
 
     @Override
